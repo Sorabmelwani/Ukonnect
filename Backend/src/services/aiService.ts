@@ -34,6 +34,27 @@ export async function buildContext(userId: string, question: string): Promise<Co
 
   const ctx: ContextItem[] = [];
 
+  // Add profile data to context for personalized responses
+  if (me) {
+    const profileParts: string[] = [];
+    if (me?.fullName) profileParts.push(`Name: ${me.fullName}`);
+    if (me.nationality) profileParts.push(`Nationality: ${me.nationality}`);
+    if (me.visaType) profileParts.push(`Visa Type: ${me.visaType}`);
+    if (me.purpose) profileParts.push(`Purpose: ${me.purpose}`);
+    if (me.city) profileParts.push(`Location: ${me.city}`);
+    if (me.visaExpiryDate) {
+      profileParts.push(`Visa Expiry: ${me.visaExpiryDate.toISOString().slice(0, 10)}`);
+    }
+    
+    if (profileParts.length > 0) {
+      ctx.push({
+        type: "profile",
+        title: "User Profile",
+        content: profileParts.join(" • ")
+      });
+    }
+  }
+
   for (const f of faqs) {
     ctx.push({ type: "faq", title: f.question, content: f.answer, url: f.officialUrl });
   }
