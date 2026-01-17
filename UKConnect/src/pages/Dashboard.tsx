@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchDashboard, generateTasks, updateTaskStatus, type DashboardTask, type DashboardData } from '../api/dashboard'
-import { HiOutlineUser, HiOutlineLocationMarker, HiOutlineClock, HiOutlineCheckCircle, HiOutlineXCircle } from 'react-icons/hi'
+import { HiOutlineUser, HiOutlineLocationMarker, HiOutlineClock, HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineX } from 'react-icons/hi'
 import { FiSearch, FiFolder, FiHeart, FiSettings } from 'react-icons/fi'
 import ThemeToggle from '../components/ThemeToggle'
 import PageHeader from '../components/PageHeader'
@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [dismissedNotifications, setDismissedNotifications] = useState<Set<string>>(new Set())
   const tasksGeneratedRef = useRef(false)
 
   const loadDashboard = async () => {
@@ -98,6 +99,26 @@ export default function Dashboard() {
     return `Due in ${diffDays} days`
   }
 
+  const isTaskDueToday = (task: DashboardTask) => {
+    if (!task.dueAt) return false
+    const dueDate = new Date(task.dueAt)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    dueDate.setHours(0, 0, 0, 0)
+    return dueDate.getTime() === today.getTime()
+  }
+
+  const tasksDueToday = tasks.filter(
+    (task: DashboardTask) => 
+      isTaskDueToday(task) && 
+      task.status !== 'COMPLETED' && 
+      !dismissedNotifications.has(task.id)
+  )
+
+  const handleDismissNotification = (taskId: string) => {
+    setDismissedNotifications(prev => new Set([...prev, taskId]))
+  }
+
   const getPriorityClass = (priority: string) => {
     const priorityUpper = priority.toUpperCase()
     if (priorityUpper === 'HIGH') return 'pill-priority-high'
@@ -108,6 +129,29 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
+      {tasksDueToday.length > 0 && (
+        <div className="dashboard-notification-container">
+          {tasksDueToday.map((task: DashboardTask) => (
+            <div key={task.id} className="dashboard-notification">
+              <div className="dashboard-notification-content">
+                <HiOutlineClock className="dashboard-notification-icon" />
+                <div className="dashboard-notification-text">
+                  <strong>{task.title}</strong>
+                  <span>Due today</span>
+                </div>
+              </div>
+              <button 
+                className="dashboard-notification-close"
+                onClick={() => handleDismissNotification(task.id)}
+                aria-label="Dismiss notification"
+              >
+                <HiOutlineX />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
       <PageHeader
         title={`Welcome ${profile?.fullName}!`}
         subtitle="Your personalized settlement dashboard"

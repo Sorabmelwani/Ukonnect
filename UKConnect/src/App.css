@@ -1291,6 +1291,110 @@ svg[class*="react-icons"],
   border-color: rgba(255, 255, 255, 0.7);
 }
 
+.dashboard-notification-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.dashboard-notification {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: 2px solid #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 300px;
+}
+
+.dashboard-notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.dashboard-notification-icon {
+  font-size: 1.5rem;
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+.dashboard-notification-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dashboard-notification-text strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.dashboard-notification-text span {
+  font-size: 0.85rem;
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.dashboard-notification-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 0.375rem;
+  flex-shrink: 0;
+}
+
+.dashboard-notification-close:hover {
+  color: #111827;
+  background-color: #f3f4f6;
+}
+
+.dashboard-notification-close svg {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-notification-container {
+    top: 0.75rem;
+    right: 0.75rem;
+    left: 0.75rem;
+    max-width: none;
+  }
+
+  .dashboard-notification {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
 .dashboard-main {
   display: flex;
   flex-direction: column;
@@ -4629,6 +4733,30 @@ svg[class*="react-icons"],
 
   .next-priority-due {
     color: var(--text-secondary);
+  }
+
+  /* Dashboard Notifications */
+  .dashboard-notification {
+    background: var(--bg-secondary);
+    border-color: #f59e0b;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .dashboard-notification-text strong {
+    color: var(--text-primary);
+  }
+
+  .dashboard-notification-text span {
+    color: #fbbf24;
+  }
+
+  .dashboard-notification-close {
+    color: var(--text-secondary);
+  }
+
+  .dashboard-notification-close:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-tertiary);
   }
 
   /* Pills */
