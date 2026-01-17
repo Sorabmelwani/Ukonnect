@@ -41,6 +41,7 @@ export const updateProfile = async (profileData: {
   nationality: string
   city: string
   visaType: string
+  purpose?: string
 }): Promise<Profile> => {
   const response = await apiClient.put<Profile>('/me/profile', profileData)
   return response.data

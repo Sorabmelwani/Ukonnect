@@ -1,6 +1,5 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import VerifyVisa from './pages/VerifyVisa'
@@ -17,7 +16,16 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/"
+          element={
+            <ThemeProvider>
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            </ThemeProvider>
+          }
+        />
         <Route
           path="/login"
           element={

@@ -47,7 +47,7 @@ meRouter.get("/profile", requireAuth, async (req, res) => {
  * PUT /me/profile
  */
 meRouter.put("/profile", requireAuth, async (req, res) => {
-  const { fullName, nationality, city, visaType } = req.body;
+  const { fullName, nationality, city, visaType, purpose } = req.body;
 
   const profile = await prisma.profile.upsert({
     where: { userId: req.user!.id },
@@ -56,6 +56,7 @@ meRouter.put("/profile", requireAuth, async (req, res) => {
       nationality,
       city,
       visaType,
+      purpose,
     },
     create: {
       userId: req.user!.id,
@@ -63,6 +64,7 @@ meRouter.put("/profile", requireAuth, async (req, res) => {
       nationality,
       city,
       visaType,
+      purpose,
     },
   });
 
