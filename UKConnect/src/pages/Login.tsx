@@ -76,6 +76,12 @@ export default function Login() {
 
           {error && <p className="auth-error">{error}</p>}
 
+          <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
+            <Link to="/forgot-password" style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}>
+              Forgot Password?
+            </Link>
+          </div>
+
           <button type="submit" className="btn btn-auth-primary" disabled={loading}>
             {loading ? 'Signing In...' : 'Sign In'}
           </button>

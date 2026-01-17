@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ForgotPassword from './pages/ForgotPassword'
 import VerifyVisa from './pages/VerifyVisa'
 import Dashboard from './pages/Dashboard'
 import LocalServices from './pages/LocalServices'
@@ -42,6 +43,16 @@ function App() {
             <ThemeProvider>
               <PublicRoute>
                 <Signup />
+              </PublicRoute>
+            </ThemeProvider>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <ThemeProvider>
+              <PublicRoute>
+                <ForgotPassword />
               </PublicRoute>
             </ThemeProvider>
           }

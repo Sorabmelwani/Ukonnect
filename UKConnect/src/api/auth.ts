@@ -88,3 +88,33 @@ export const refreshAccessToken = async (): Promise<string | null> => {
   }
 }
 
+interface ForgotPasswordPayload {
+  email: string
+}
+
+interface VerifyOTPPayload {
+  email: string
+  otp: string
+}
+
+interface ResetPasswordPayload {
+  email: string
+  otp: string
+  newPassword: string
+}
+
+export const requestPasswordReset = async (data: ForgotPasswordPayload): Promise<{ ok: boolean; message: string }> => {
+  const response = await apiClient.post<{ ok: boolean; message: string }>('/auth/forgot-password', data)
+  return response.data
+}
+
+export const verifyOTP = async (data: VerifyOTPPayload): Promise<{ ok: boolean; message: string }> => {
+  const response = await apiClient.post<{ ok: boolean; message: string }>('/auth/verify-otp', data)
+  return response.data
+}
+
+export const resetPassword = async (data: ResetPasswordPayload): Promise<{ ok: boolean; message: string }> => {
+  const response = await apiClient.post<{ ok: boolean; message: string }>('/auth/reset-password', data)
+  return response.data
+}
+

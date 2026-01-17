@@ -25,6 +25,21 @@ const loginSchema = z.object({
   password: z.string().min(1),
 });
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
+
+const verifyOTPSchema = z.object({
+  email: z.string().email(),
+  otp: z.string().length(4),
+});
+
+const resetPasswordSchema = z.object({
+  email: z.string().email(),
+  otp: z.string().length(4),
+  newPassword: z.string().min(8),
+});
+
 function signAccessToken(user: { id: string; email: string }) {
   // IMPORTANT: requireAuth expects { sub, email }
   return jwt.sign(
@@ -162,6 +177,88 @@ authRouter.post("/refresh", async (req, res, next) => {
       ok: true,
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /auth/forgot-password
+authRouter.post("/forgot-password", async (req, res, next) => {
+  try {
+    const { email } = forgotPasswordSchema.parse(req.body);
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: { id: true, email: true },
+    });
+
+    // Don't reveal if email exists for security
+    // Always return success, but only proceed if user exists
+    res.json({
+      ok: true,
+      message: "If an account exists with this email, an OTP has been sent.",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /auth/verify-otp
+authRouter.post("/verify-otp", async (req, res, next) => {
+  try {
+    const { email, otp } = verifyOTPSchema.parse(req.body);
+
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: { id: true, email: true },
+    });
+
+    if (!user) throw new HttpError(404, "User not found");
+
+    // Static OTP: 1234
+    if (otp !== "1234") {
+      throw new HttpError(400, "Invalid OTP");
+    }
+
+    res.json({
+      ok: true,
+      message: "OTP verified successfully",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /auth/reset-password
+authRouter.post("/reset-password", async (req, res, next) => {
+  try {
+    const { email, otp, newPassword } = resetPasswordSchema.parse(req.body);
+
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: { email },
+      select: { id: true, email: true, passwordHash: true },
+    });
+
+    if (!user) throw new HttpError(404, "User not found");
+
+    // Verify OTP again
+    if (otp !== "1234") {
+      throw new HttpError(400, "Invalid OTP");
+    }
+
+    // Update password
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { passwordHash },
+    });
+
+    res.json({
+      ok: true,
+      message: "Password reset successfully",
     });
   } catch (err) {
     next(err);
