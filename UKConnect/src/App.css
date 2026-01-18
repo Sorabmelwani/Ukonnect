@@ -1,7 +1,7 @@
 /* Global Icon Styling - Black and White Wire Icons */
 svg[class*="react-icons"],
 .react-icons {
-  color: #1a1a1a;
+  color: var(--foreground);
   stroke: currentColor;
   fill: none;
   stroke-width: 1.5;
@@ -21,7 +21,19 @@ svg[class*="react-icons"],
 
 /* Header */
 .header {
-  display: none;
+  display: block;
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  border-bottom: none;
+  padding: 1rem 0;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure header gradient is the same in both light and dark mode */
+.dark-theme .header,
+.light-theme .header {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
 }
 
 .header-content {
@@ -37,16 +49,19 @@ svg[class*="react-icons"],
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
+  font-family: var(--font-display);
 }
 
 .logo-icon {
   font-size: 1.8rem;
+  color: white;
 }
 
 .logo h1 {
-  color: #1a1a1a;
+  color: white;
   margin: 0;
   font-size: 1.5rem;
+  font-family: var(--font-display);
 }
 
 .nav ul {
@@ -58,35 +73,41 @@ svg[class*="react-icons"],
 
 .nav a {
   text-decoration: none;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
   font-size: 1.05rem;
   transition: color 0.3s ease;
+  font-family: var(--font-sans);
 }
 
 .nav a:hover {
-  color: #1f7ce1;
+  color: white;
 }
 
 .cta-btn {
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: white;
-  padding: 0.6rem 1.2rem;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-md);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+  text-decoration: none;
+  display: inline-block;
 }
 
 .cta-btn:hover {
-  background-color: #1563b8;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #5b7fd4 0%, #d99db8 50%, #f5a962 100%);
+  background: var(--gradient-primary);
   padding: 6rem 0;
   position: relative;
   overflow: hidden;
@@ -116,7 +137,7 @@ svg[class*="react-icons"],
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.15);
   padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
+  border-radius: var(--border-radius-2xl);
   margin-bottom: 1.5rem;
   font-size: 1.05rem;
   font-weight: 500;
@@ -131,7 +152,7 @@ svg[class*="react-icons"],
 }
 
 .hero-content h2 .highlight {
-  color: #ffa500;
+  color: var(--warning);
   display: block;
 }
 
@@ -152,26 +173,27 @@ svg[class*="react-icons"],
 .btn {
   padding: 0.8rem 1.6rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
+  font-family: var(--font-sans);
 }
 
 .btn-primary {
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: white;
   padding: 0.65rem 1.4rem;
   font-size: 1rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #1563b8;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(31, 124, 225, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:disabled {
@@ -181,14 +203,14 @@ svg[class*="react-icons"],
 }
 
 .btn-hero-primary {
-  background-color: #3b9cdc;
+  background: var(--gradient-primary);
   color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .btn-hero-primary:hover {
-  background-color: #2b8cc0;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 156, 220, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-secondary {
@@ -204,7 +226,7 @@ svg[class*="react-icons"],
 /* Personalization Section */
 .personalization {
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+  background: var(--secondary);
   min-height: 60vh;
 }
 
@@ -212,13 +234,13 @@ svg[class*="react-icons"],
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: #1a1a1a;
+  color: var(--foreground);
   font-weight: 600;
 }
 
 .personalization > .container > p {
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 2.5rem;
   font-size: 1rem;
 }
@@ -226,10 +248,10 @@ svg[class*="react-icons"],
 .personalization-form {
   max-width: 500px;
   margin: 0 auto;
-  background: white;
+  background: var(--card);
   padding: 2.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
 .form-steps {
@@ -243,13 +265,13 @@ svg[class*="react-icons"],
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #d0d0d0;
+  background-color: var(--muted);
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
 .form-steps .step.active {
-  background-color: #1f7ce1;
+  background-color: var(--primary);
   width: 10px;
 }
 
@@ -273,7 +295,7 @@ svg[class*="react-icons"],
 .form-group h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #1a1a1a;
+  color: var(--foreground);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -281,7 +303,7 @@ svg[class*="react-icons"],
 }
 
 .form-group p {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 1.05rem;
   margin-bottom: 1.5rem;
   line-height: 1.5;
@@ -292,7 +314,7 @@ svg[class*="react-icons"],
   margin-bottom: 0.5rem;
   margin-top: 1.25rem;
   font-weight: 500;
-  color: #333;
+  color: var(--foreground);
   font-size: 1rem;
 }
 
@@ -303,17 +325,17 @@ svg[class*="react-icons"],
 .form-group select {
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   font-size: 1.05rem;
-  font-family: inherit;
-  color: #333;
-  background-color: white;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background-color: var(--card);
   cursor: pointer;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 0;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231A1F2E' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -321,12 +343,12 @@ svg[class*="react-icons"],
 
 .form-group select:focus {
   outline: none;
-  border-color: #1f7ce1;
-  box-shadow: 0 0 0 3px rgba(31, 124, 225, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px hsla(225, 75%, 55%, 0.1);
 }
 
 .form-group select:hover {
-  border-color: #bbb;
+  border-color: var(--muted);
 }
 
 .form-content {
@@ -339,24 +361,29 @@ svg[class*="react-icons"],
   justify-content: space-between;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-color);
 }
 
 .btn-link {
   background-color: transparent;
-  color: #999;
-  padding: 0.65rem 1.2rem;
+  color: var(--text-secondary);
+  padding: 0.85rem 1.5rem;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: var(--border-radius-md);
   font-weight: 500;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: var(--font-sans);
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-link:hover {
-  color: #666;
-  background-color: #f5f5f5;
+  color: var(--primary);
+  background-color: var(--muted);
 }
 
 /* Welcome Card (Final Step) */
@@ -621,12 +648,13 @@ svg[class*="react-icons"],
 .btn-cta {
   padding: 0.8rem 1.8rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
+  font-family: var(--font-sans);
 }
 
 .btn-light {
@@ -637,32 +665,34 @@ svg[class*="react-icons"],
 
 .btn-light:hover {
   background-color: white;
-  color: #1f7ce1;
+  color: var(--primary);
 }
 
 .btn-green {
-  background-color: #00cc99;
+  background: var(--gradient-success);
   color: white;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-green:hover {
-  background-color: #00b380;
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-orange {
-  background-color: #ff9944;
+  background: var(--gradient-warning);
   color: white;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-orange:hover {
-  background-color: #ff8822;
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Footer */
 .footer {
-  background: linear-gradient(135deg, #1f7ce1 0%, #4fa3f0 100%);
+  background: var(--gradient-primary);
   color: white;
   padding: 4rem 0 2rem;
 }
@@ -886,18 +916,18 @@ svg[class*="react-icons"],
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--background);
   padding: 2rem;
 }
 
 .auth-card {
-  background-color: white;
+  background-color: var(--card);
   padding: 3rem;
-  border-radius: 0.8rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
   width: 100%;
   max-width: 500px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border-color);
   position: relative;
 }
 
@@ -906,14 +936,14 @@ svg[class*="react-icons"],
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: #1a1a1a;
+  color: var(--foreground);
   font-weight: 600;
 }
 
 .auth-card p,
 .auth-form-wrapper p {
   text-align: center;
-  color: #999;
+  color: var(--text-secondary);
   font-size: 1rem;
   margin-bottom: 2rem;
 }
@@ -940,10 +970,12 @@ svg[class*="react-icons"],
 .form-group-auth input {
   width: 100%;
   padding: 0.85rem;
-  border: 1px solid var(--border-color, #ddd);
-  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   font-size: 1.05rem;
-  font-family: inherit;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  background-color: var(--card);
   color: var(--text-primary, #333);
   background-color: var(--bg-primary, white);
   transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
@@ -980,49 +1012,58 @@ svg[class*="react-icons"],
 }
 
 .btn-auth-primary {
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: white;
-  padding: 0.9rem;
+  padding: 0.9rem 1.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+  width: 100%;
+  min-height: 48px;
 }
 
 .btn-auth-primary:hover {
-  background-color: #1563b8;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(31, 124, 225, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-auth-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .auth-link {
   text-align: center;
   margin-top: 1.5rem;
   font-size: 1rem;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .auth-link a {
-  color: #1f7ce1;
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .auth-link a:hover {
-  color: #1563b8;
+  color: var(--accent);
   text-decoration: underline;
 }
 
 .auth-error {
-  background-color: rgba(255, 99, 99, 0.1);
-  border: 1px solid rgba(255, 99, 99, 0.3);
-  color: #ff6363;
+  background-color: hsla(0, 72%, 55%, 0.1);
+  border: 1px solid var(--destructive);
+  color: var(--destructive);
   padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   font-size: 0.9rem;
   margin-bottom: 1rem;
   text-align: center;
@@ -1185,12 +1226,12 @@ svg[class*="react-icons"],
 
 .personalization-steps .form-group select:focus {
   outline: none;
-  border-color: #1f7ce1;
-  box-shadow: 0 0 0 3px rgba(31, 124, 225, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px hsla(225, 75%, 55%, 0.1);
 }
 
 .personalization-steps .form-group select:hover {
-  border-color: #bbb;
+  border-color: var(--muted);
 }
 
 .personalization-steps .form-buttons {
@@ -1199,31 +1240,33 @@ svg[class*="react-icons"],
   justify-content: space-between;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-color);
 }
 
 .personalization-steps .btn-primary {
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: white;
   padding: 0.85rem 1.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+  min-height: 48px;
 }
 
 .personalization-steps .btn-primary:hover:not(:disabled) {
-  background-color: #1563b8;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(31, 124, 225, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .personalization-steps .btn-primary:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
   opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Verify Visa Page */
@@ -1337,7 +1380,8 @@ svg[class*="react-icons"],
 
 .dashboard-header {
   width: 100%;
-  background-color: #1563b8;
+  /* background-color: #1563b8; */
+  background: var(--gradient-primary);
   padding: 1.5rem 0;
   margin-bottom: 2rem;
 }
@@ -2135,7 +2179,8 @@ svg[class*="react-icons"],
 
 .local-services-header {
   width: 100%;
-  background-color: #1563b8;
+  /* background-color: #1563b8; */
+  background: var(--gradient-primary);
   padding: 1.5rem 0;
   margin-bottom: 2rem;
 }
@@ -2485,7 +2530,8 @@ svg[class*="react-icons"],
 
 .community-hub-header {
   width: 100%;
-  background-color: #1563b8;
+  /* background-color: #1563b8; */
+  background: var(--gradient-primary);
   padding: 1.5rem 0;
   margin-bottom: 2rem;
 }
@@ -3737,7 +3783,8 @@ svg[class*="react-icons"],
 
 .profile-settings-header {
   width: 100%;
-  background-color: #1563b8;
+  /* background-color: #1563b8; */
+  background: var(--gradient-primary);
   padding: 1.5rem 0;
   margin-bottom: 2rem;
 }
@@ -4302,10 +4349,10 @@ svg[class*="react-icons"],
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: #ffffff;
   border: none;
-  box-shadow: 0 4px 12px rgba(31, 124, 225, 0.4);
+  box-shadow: var(--shadow-lg);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -4315,9 +4362,8 @@ svg[class*="react-icons"],
 }
 
 .chatbot-toggle-btn:hover {
-  background-color: #1563b8;
   transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(31, 124, 225, 0.5);
+  box-shadow: var(--shadow-xl);
 }
 
 .chatbot-toggle-btn svg {
@@ -4333,9 +4379,9 @@ svg[class*="react-icons"],
   width: 400px;
   height: 600px;
   max-height: calc(100vh - 8rem);
-  background-color: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: var(--card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
   display: flex;
   flex-direction: column;
   z-index: 1000;
@@ -4343,7 +4389,7 @@ svg[class*="react-icons"],
 }
 
 .chatbot-header {
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: #ffffff;
   padding: 1rem 1.25rem;
   display: flex;
@@ -4421,20 +4467,20 @@ svg[class*="react-icons"],
 
 .chatbot-welcome-icon {
   font-size: 3rem;
-  color: #1f7ce1;
+  color: var(--primary);
   margin-bottom: 1rem;
 }
 
 .chatbot-welcome h4 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--foreground);
   margin: 0 0 0.5rem 0;
 }
 
 .chatbot-welcome p {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0 0 1.5rem 0;
 }
 
@@ -4447,10 +4493,10 @@ svg[class*="react-icons"],
 
 .chatbot-example-btn {
   padding: 0.625rem 0.875rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  background-color: #ffffff;
-  color: #1a1a1a;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--card);
+  color: var(--foreground);
   font-size: 0.85rem;
   text-align: left;
   cursor: pointer;
@@ -4458,9 +4504,9 @@ svg[class*="react-icons"],
 }
 
 .chatbot-example-btn:hover {
-  border-color: #1f7ce1;
-  background-color: #f0f7ff;
-  color: #1f7ce1;
+  border-color: var(--primary);
+  background-color: var(--secondary);
+  color: var(--primary);
 }
 
 .chatbot-message-group {
@@ -4475,10 +4521,10 @@ svg[class*="react-icons"],
 }
 
 .chatbot-question-content {
-  background-color: #1f7ce1;
+  background: var(--gradient-primary);
   color: #ffffff;
   padding: 0.75rem 1rem;
-  border-radius: 1rem 1rem 0.25rem 1rem;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) var(--border-radius-sm) var(--border-radius-lg);
   font-size: 0.9rem;
   line-height: 1.4;
 }
@@ -4492,8 +4538,8 @@ svg[class*="react-icons"],
 }
 
 .chatbot-answer-content {
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background-color: var(--card);
+  color: var(--foreground);
   padding: 0.875rem 1rem;
   border-radius: 1rem 1rem 1rem 0.25rem;
   font-size: 0.9rem;
@@ -5033,7 +5079,8 @@ svg[class*="react-icons"],
   }
 
   .dashboard-header {
-    background-color: #1563b8; /* Darker shade of blue */
+    /* background-color: #1563b8; Darker shade of blue */
+    background: var(--gradient-primary);
   }
 
   .dashboard-title {
@@ -5323,7 +5370,8 @@ svg[class*="react-icons"],
   }
 
   .local-services-header {
-    background-color: #1563b8; /* Darker shade of blue */
+    /* background-color: #1563b8; Darker shade of blue */
+    background: var(--gradient-primary);
   }
 
   .local-services-title {
@@ -5444,7 +5492,8 @@ svg[class*="react-icons"],
   }
 
   .document-manager-header {
-    background-color: #1563b8; /* Darker shade of blue */
+    /* background-color: #1563b8; Darker shade of blue */
+    background: var(--gradient-primary);
   }
 
   .document-manager-title {
@@ -5580,7 +5629,8 @@ svg[class*="react-icons"],
   }
 
   .community-hub-header {
-    background-color: #1563b8; /* Darker shade of blue */
+    /* background-color: #1563b8; Darker shade of blue */
+    background: var(--gradient-primary);
   }
 
   .community-hub-title {
@@ -5928,7 +5978,8 @@ svg[class*="react-icons"],
   }
 
   .profile-settings-header {
-    background-color: #1563b8; /* Darker shade of blue */
+    /* background-color: #1563b8; Darker shade of blue */
+    background: var(--gradient-primary);
   }
 
   .profile-settings-title {

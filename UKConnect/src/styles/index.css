@@ -5,46 +5,136 @@
 }
 
 :root {
-  --primary-color: #1f7ce1;
-  --secondary-color: #00cc99;
-  --accent-color: #ff9944;
-  --text-dark: #1a1a1a;
-  --text-light: #666666;
-  --bg-light: #f8f9fa;
-  --bg-white: #ffffff;
-  --border-color: #e0e0e0;
+  /* Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-display: 'Outfit', var(--font-sans);
+  
+  /* Design Tokens */
+  --border-radius: 0.75rem; /* 12px base */
+  --border-radius-sm: 0.375rem; /* 6px */
+  --border-radius-md: 0.5rem; /* 8px */
+  --border-radius-lg: 1rem; /* 16px */
+  --border-radius-xl: 1.5rem; /* 24px */
+  --border-radius-2xl: 2rem; /* 32px */
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(59, 107, 245, 0.3);
+  
   --spacing-unit: 1rem;
 }
 
 /* Light theme (default) */
 :root.light-theme,
 :root:not(.dark-theme) {
-  --primary-color: #1f7ce1;
-  --secondary-color: #00cc99;
-  --accent-color: #ff9944;
-  --text-primary: #1a1a1a;
-  --text-secondary: #666666;
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #f0f0f0;
-  --border-color: #e0e0e0;
+  /* Primary Colors */
+  --primary: hsl(225, 75%, 55%); /* #3B6BF5 */
+  --accent: hsl(260, 60%, 55%); /* #8B5CF6 */
+  --success: hsl(160, 70%, 40%); /* #14B879 */
+  --warning: hsl(38, 95%, 50%); /* #F5A623 */
+  --destructive: hsl(0, 72%, 55%); /* #E84855 */
+  --info: hsl(195, 85%, 48%); /* #0EA5E9 */
+  
+  /* Background Colors */
+  --background: hsl(220, 20%, 97%); /* #F5F6F8 */
+  --card: hsl(0, 0%, 100%); /* #FFFFFF */
+  --muted: hsl(220, 15%, 92%); /* #E8EAED */
+  --secondary: hsl(250, 30%, 94%); /* #EFECF9 */
+  
+  /* Text Colors */
+  --foreground: hsl(220, 30%, 12%); /* #1A1F2E */
+  --text-primary: hsl(220, 30%, 12%);
+  --text-secondary: hsl(220, 15%, 45%);
+  
+  /* Border */
+  --border-color: hsl(220, 15%, 85%);
+  
+  /* Legacy support */
+  --primary-color: var(--primary);
+  --secondary-color: var(--secondary);
+  --accent-color: var(--accent);
+  --text-dark: var(--foreground);
+  --text-light: var(--text-secondary);
+  --bg-light: var(--background);
+  --bg-white: var(--card);
+  --bg-primary: var(--card);
+  --bg-secondary: var(--background);
+  --bg-tertiary: var(--muted);
+  
+  /* Shadows */
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-hover: rgba(0, 0, 0, 0.15);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #3B6BF5 0%, #8B5CF6 100%);
+  --gradient-success: linear-gradient(135deg, #14B879 0%, #10B981 100%);
+  --gradient-warning: linear-gradient(135deg, #F5A623 0%, #F97316 100%);
+  --gradient-info: linear-gradient(135deg, #0EA5E9 0%, #3B82F6 100%);
 }
 
 /* Dark theme */
 :root.dark-theme {
-  --primary-color: #4a9eff;
-  --secondary-color: #00d9b3;
-  --accent-color: #ffaa66;
-  --text-primary: #e0e0e0;
-  --text-secondary: #b0b0b0;
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #252525;
-  --bg-tertiary: #2d2d2d;
-  --border-color: #404040;
+  /* Primary Colors */
+  --primary: hsl(225, 75%, 60%);
+  --accent: hsl(260, 60%, 60%);
+  --success: hsl(160, 70%, 45%);
+  --warning: hsl(38, 95%, 55%);
+  --destructive: hsl(0, 72%, 60%);
+  --info: hsl(195, 85%, 53%);
+  
+  /* Background Colors */
+  --background: hsl(220, 20%, 8%);
+  --card: hsl(220, 20%, 12%);
+  --muted: hsl(220, 15%, 20%);
+  --secondary: hsl(250, 30%, 15%);
+  
+  /* Text Colors */
+  --foreground: hsl(220, 15%, 92%);
+  --text-primary: hsl(220, 15%, 92%);
+  --text-secondary: hsl(220, 15%, 65%);
+  
+  /* Border */
+  --border-color: hsl(220, 15%, 25%);
+  
+  /* Legacy support */
+  --primary-color: var(--primary);
+  --secondary-color: var(--secondary);
+  --accent-color: var(--accent);
+  --text-dark: var(--foreground);
+  --text-light: var(--text-secondary);
+  --bg-light: var(--background);
+  --bg-white: var(--card);
+  --bg-primary: var(--card);
+  --bg-secondary: var(--background);
+  --bg-tertiary: var(--muted);
+  
+  /* Shadows */
   --shadow: rgba(0, 0, 0, 0.3);
   --shadow-hover: rgba(0, 0, 0, 0.4);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(225, 75%, 60%) 0%, hsl(260, 60%, 60%) 100%);
+  --gradient-success: linear-gradient(135deg, hsl(160, 70%, 45%) 0%, hsl(160, 70%, 50%) 100%);
+  --gradient-warning: linear-gradient(135deg, hsl(38, 95%, 55%) 0%, hsl(24, 95%, 55%) 100%);
+  --gradient-info: linear-gradient(135deg, hsl(195, 85%, 53%) 0%, hsl(225, 75%, 60%) 100%);
+}
+
+/* Sidebar Dark Corporate Theme */
+.sidebar,
+[class*="sidebar"] {
+  --sidebar-bg: hsl(225, 35%, 14%);
+  --sidebar-foreground: hsl(220, 15%, 92%);
+  --sidebar-primary: hsl(225, 75%, 60%);
+  --sidebar-accent: hsl(225, 30%, 20%);
+  background: var(--sidebar-bg);
+  color: var(--sidebar-foreground);
 }
 
 html {
@@ -52,16 +142,34 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
+  color: var(--foreground);
+  background-color: var(--background);
   line-height: 1.6;
   font-size: 1.125rem; /* 18px base instead of 16px */
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Headings use Outfit (Display font) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.2;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h3, h4, h5, h6 {
+  font-weight: 500;
 }
 
 .container {
@@ -76,7 +184,7 @@ body {
 
 /* Theme toggle button */
 .theme-toggle {
-  background: var(--bg-secondary);
+  background: var(--card);
   border: 1px solid var(--border-color);
   border-radius: 50%;
   width: 40px;
@@ -85,15 +193,15 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--text-primary);
+  color: var(--foreground);
   transition: all 0.3s ease;
   padding: 0;
-  box-shadow: 0 2px 4px var(--shadow);
+  box-shadow: var(--shadow-sm);
 }
 
 .theme-toggle:hover {
-  background: var(--bg-tertiary);
-  box-shadow: 0 4px 8px var(--shadow-hover);
+  background: var(--muted);
+  box-shadow: var(--shadow-md);
   transform: scale(1.05);
 }
 
