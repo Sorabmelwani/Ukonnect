@@ -86,7 +86,8 @@ export async function generateTasksForUser(userId: string) {
   for (const t of applicable) {
     if (existingSet.has(t.id)) continue;
 
-    const priority: TaskPriority = isTaskPriority(t.defaultPriority) ? t.defaultPriority : "MEDIUM";
+    const normalizedPriority = typeof t.defaultPriority === "string" ? t.defaultPriority.toUpperCase() : null;
+    const priority: TaskPriority = isTaskPriority(normalizedPriority) ? normalizedPriority : "MEDIUM";
 
     const dueDays =
       priority === "URGENT" ? 3 : priority === "HIGH" ? 7 : priority === "MEDIUM" ? 14 : 21;

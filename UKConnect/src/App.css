@@ -3349,7 +3349,7 @@ svg[class*="react-icons"],
 
 .document-manager-header {
   width: 100%;
-  background-color: #1563b8;
+  background: var(--gradient-primary);
   padding: 1.5rem 0;
   margin-bottom: 2rem;
 }
