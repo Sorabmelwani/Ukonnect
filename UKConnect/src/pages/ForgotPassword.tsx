@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { requestPasswordReset, verifyOTP, resetPassword } from '../api/auth'
 import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi'
 import ThemeToggle from '../components/ThemeToggle'
+import logo from '../assets/images/logo.png'
 
 export default function ForgotPassword() {
   const [step, setStep] = useState(1) // 1: email, 2: OTP, 3: new password
@@ -85,162 +86,176 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
-          <ThemeToggle />
+    <div className="auth-split-container">
+      {/* Left Side - Branding */}
+      <div className="auth-branding">
+        <div className="auth-branding-content">
+          <div className="auth-logo-icon">
+            <img src={logo} alt="UKonnect Logo" style={{ width: '180px', height: 'auto' }} />
+          </div>
+          <h1 className="auth-brand-name">UKonnect</h1>
+          <p className="auth-tagline">Settle in faster. One step at a time.</p>
         </div>
+      </div>
 
-        {/* Step 1: Enter Email */}
-        {step === 1 && (
-          <>
-            <h2>Forgot Password</h2>
-            <p>Enter your email address and we'll send you an OTP to reset your password</p>
-            
-            <form onSubmit={handleRequestReset}>
-              <div className="form-group-auth">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+      {/* Right Side - Form */}
+      <div className="auth-form-section">
+        <div className="auth-form-wrapper">
+          <div className="auth-theme-toggle">
+            <ThemeToggle />
+          </div>
 
-              {error && <p className="auth-error">{error}</p>}
-
-              <button type="submit" className="btn btn-auth-primary" disabled={loading}>
-                {loading ? 'Sending OTP...' : 'Send OTP'}
-              </button>
-            </form>
-
-            <p className="auth-link">
-              Remember your password? <Link to="/login">Sign in</Link>
-            </p>
-          </>
-        )}
-
-        {/* Step 2: Enter OTP */}
-        {step === 2 && (
-          <>
-            <h2>Enter OTP</h2>
-            <p>We've sent an OTP to your email. Please enter it below.</p>
-            
-            <form onSubmit={handleVerifyOTP}>
-              <div className="form-group-auth">
-                <label htmlFor="otp">OTP</label>
-                <input
-                  type="text"
-                  id="otp"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  required
-                  maxLength={4}
-                />
-              </div>
-
-              {error && <p className="auth-error">{error}</p>}
-
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <button 
-                  type="button" 
-                  className="btn btn-link" 
-                  onClick={() => setStep(1)}
-                  style={{ flex: 1 }}
-                >
-                  ← Back
-                </button>
-                <button 
-                  type="submit" 
-                  className="btn btn-auth-primary" 
-                  disabled={loading}
-                  style={{ flex: 1 }}
-                >
-                  {loading ? 'Verifying...' : 'Verify OTP'}
-                </button>
-              </div>
-            </form>
-          </>
-        )}
-
-        {/* Step 3: Reset Password */}
-        {step === 3 && (
-          <>
-            <h2>Reset Password</h2>
-            <p>Enter your new password</p>
-            
-            <form onSubmit={handleResetPassword}>
-              <div className="form-group-auth">
-                <label htmlFor="newPassword">New Password</label>
-                <div className="password-input-wrapper">
+          {/* Step 1: Enter Email */}
+          {step === 1 && (
+            <>
+              <h2>Forgot Password</h2>
+              <p>Enter your email address and we'll send you an OTP to reset your password</p>
+              
+              <form onSubmit={handleRequestReset}>
+                <div className="form-group-auth">
+                  <label htmlFor="email">Email</label>
                   <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="newPassword"
-                    placeholder="Enter new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
-                    minLength={8}
                   />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => setShowPassword(!showPassword)}
+                </div>
+
+                {error && <p className="auth-error">{error}</p>}
+
+                <button type="submit" className="btn btn-auth-primary" disabled={loading}>
+                  {loading ? 'Sending OTP...' : 'Send OTP →'}
+                </button>
+              </form>
+
+              <p className="auth-link">
+                Remember your password? <Link to="/login">Sign in</Link>
+              </p>
+            </>
+          )}
+
+          {/* Step 2: Enter OTP */}
+          {step === 2 && (
+            <>
+              <h2>Enter OTP</h2>
+              <p>We've sent an OTP to your email. Please enter it below.</p>
+              
+              <form onSubmit={handleVerifyOTP}>
+                <div className="form-group-auth">
+                  <label htmlFor="otp">OTP</label>
+                  <input
+                    type="text"
+                    id="otp"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    required
+                    maxLength={4}
+                  />
+                </div>
+
+                {error && <p className="auth-error">{error}</p>}
+
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <button 
+                    type="button" 
+                    className="btn btn-link" 
+                    onClick={() => setStep(1)}
+                    style={{ flex: 1 }}
                   >
-                    {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                    ← Back
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="btn btn-auth-primary" 
+                    disabled={loading}
+                    style={{ flex: 1 }}
+                  >
+                    {loading ? 'Verifying...' : 'Verify OTP →'}
                   </button>
                 </div>
-              </div>
+              </form>
+            </>
+          )}
 
-              <div className="form-group-auth">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <div className="password-input-wrapper">
-                  <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    id="confirmPassword"
-                    placeholder="Confirm new password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    minLength={8}
-                  />
-                  <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          {/* Step 3: Reset Password */}
+          {step === 3 && (
+            <>
+              <h2>Reset Password</h2>
+              <p>Enter your new password</p>
+              
+              <form onSubmit={handleResetPassword}>
+                <div className="form-group-auth">
+                  <label htmlFor="newPassword">New Password</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="newPassword"
+                      placeholder="Enter new password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                      minLength={8}
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="form-group-auth">
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      id="confirmPassword"
+                      placeholder="Confirm new password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      minLength={8}
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                    </button>
+                  </div>
+                </div>
+
+                {error && <p className="auth-error">{error}</p>}
+
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <button 
+                    type="button" 
+                    className="btn btn-link" 
+                    onClick={() => setStep(2)}
+                    style={{ flex: 1 }}
                   >
-                    {showConfirmPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                    ← Back
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="btn btn-auth-primary" 
+                    disabled={loading}
+                    style={{ flex: 1 }}
+                  >
+                    {loading ? 'Resetting...' : 'Reset Password →'}
                   </button>
                 </div>
-              </div>
-
-              {error && <p className="auth-error">{error}</p>}
-
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <button 
-                  type="button" 
-                  className="btn btn-link" 
-                  onClick={() => setStep(2)}
-                  style={{ flex: 1 }}
-                >
-                  ← Back
-                </button>
-                <button 
-                  type="submit" 
-                  className="btn btn-auth-primary" 
-                  disabled={loading}
-                  style={{ flex: 1 }}
-                >
-                  {loading ? 'Resetting...' : 'Reset Password'}
-                </button>
-              </div>
-            </form>
-          </>
-        )}
+              </form>
+            </>
+          )}
+        </div>
       </div>
     </div>
   )
