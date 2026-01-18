@@ -1902,8 +1902,9 @@ svg[class*="react-icons"],
   padding: 0.7rem 3rem;
   background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
-  opacity: 0.9;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 16px 64px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  opacity: 1;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-bottom-nav button {
@@ -1916,10 +1917,16 @@ svg[class*="react-icons"],
   font-size: 0.8rem;
   color: #6b7280;
   cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .nav-icon {
   font-size: 1rem;
+}
+
+.dashboard-bottom-nav button:hover {
+  color: #111827;
+  transform: translateY(-2px);
 }
 
 /* Notes Popup */
@@ -5240,7 +5247,8 @@ svg[class*="react-icons"],
 
   .dashboard-bottom-nav {
     background-color: var(--bg-secondary);
-    border-top-color: var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 16px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
   }
 
   .dashboard-bottom-nav button {
@@ -5248,7 +5256,8 @@ svg[class*="react-icons"],
   }
 
   .dashboard-bottom-nav button:hover {
-    color: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateY(-2px);
   }
 
   /* Profile */
