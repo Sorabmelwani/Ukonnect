@@ -1,30 +1,31 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchServices, type Service } from '../api/services'
-import { HiOutlineHome, HiOutlineOfficeBuilding, HiOutlineDeviceMobile, HiOutlineTruck, HiOutlineUsers, HiOutlineLocationMarker, HiOutlineSearch, HiOutlineClock, HiOutlinePaperAirplane, HiOutlineStar } from 'react-icons/hi'
+import { HiOutlineOfficeBuilding, HiOutlineDeviceMobile, HiOutlineTruck, HiOutlineAcademicCap, HiOutlineLocationMarker, HiOutlineSearch, HiOutlineClock, HiOutlinePaperAirplane, HiOutlineStar } from 'react-icons/hi'
 import ThemeToggle from '../components/ThemeToggle'
 import PageHeader from '../components/PageHeader'
+import { HiOutlineBuildingOffice, HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 
 const categories = [
   'All Services',
-  'GP',
   'BANK',
+  'EDUCATION',
+  'GP',
+  'HOSPITAL',
+  'LOCAL COUNCIL',
   'MOBILE',
-  'ACCOMMODATION',
   'TRANSPORT',
-  'COMMUNITY',
-  'OTHER'
 ]
 
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase()
-  if (cat === 'gp') return <HiOutlineOfficeBuilding />
   if (cat === 'bank') return <HiOutlineOfficeBuilding />
+  if (cat === 'education') return <HiOutlineAcademicCap />
+  if (cat === 'gp') return <HiOutlineBuildingOffice2 />
+  if (cat === 'hospital') return <HiOutlineBuildingOffice />
+  if (cat === 'local council') return <HiOutlineBuildingOffice />
   if (cat === 'mobile') return <HiOutlineDeviceMobile />
-  if (cat === 'accommodation') return <HiOutlineHome />
   if (cat === 'transport') return <HiOutlineTruck />
-  if (cat === 'community') return <HiOutlineUsers />
-  if (cat === 'other') return <HiOutlineLocationMarker />
   return <HiOutlineLocationMarker />
 }
 

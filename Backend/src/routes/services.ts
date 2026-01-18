@@ -9,7 +9,7 @@ servicesRouter.get("/", async (req, res, next) => {
   try {
     const schema = z.object({
       city: z.string().optional(),
-      category: z.enum(["GP","BANK","MOBILE","ACCOMMODATION","TRANSPORT","COMMUNITY","OTHER"]).optional(),
+      category: z.enum(["BANK", "EDUCATION", "GP", "HOSPITAL", "LOCAL COUNCIL", "MOBILE", "TRANSPORT"]).optional(),
       q: z.string().optional()
     });
     const q = schema.parse(req.query);

@@ -142,7 +142,7 @@ async function main() {
     data: [
       {
         name: 'Kingston University London',
-        category: 'Education',
+        category: 'EDUCATION',
         city: 'Kingston upon Thames',
         address: 'Penrhyn Road, Kingston upon Thames, Surrey KT1 2EE',
         phone: '+44 20 8417 9000',
@@ -162,7 +162,7 @@ async function main() {
       },
       {
         name: 'Kingston Hospital',
-        category: 'Hospital',
+        category: 'HOSPITAL',
         city: 'Kingston upon Thames',
         address: 'Galsworthy Road, Kingston upon Thames, Surrey KT2 7QB',
         phone: '+44 20 8546 7711',
@@ -172,7 +172,7 @@ async function main() {
       },
       {
         name: 'HSBC UK Kingston Clarence Street',
-        category: 'Bank',
+        category: 'BANK',
         city: 'Kingston upon Thames',
         address: '54 Clarence Street, Kingston upon Thames, Surrey KT1 1NP',
         phone: '',
@@ -182,7 +182,7 @@ async function main() {
       },
       {
         name: 'O2 Store Kingston Upon Thames',
-        category: 'Mobile',
+        category: 'MOBILE',
         city: 'Kingston upon Thames',
         address: 'Ground Floor Bentall Centre, Kingston Upon Thames, Surrey KT1 1TP',
         phone: '',
@@ -192,7 +192,7 @@ async function main() {
       },
       {
         name: 'Kingston Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'Kingston upon Thames',
         address: 'Wood Street, Kingston, Greater London KT1 1UJ',
         phone: '',
@@ -202,7 +202,7 @@ async function main() {
       },
       {
         name: 'University College London (UCL)',
-        category: 'Education',
+        category: 'EDUCATION',
         city: 'London',
         address: 'Gower Street, London WC1E 6BT',
         phone: '',
@@ -222,7 +222,7 @@ async function main() {
       },
       {
         name: 'University College Hospital',
-        category: 'Hospital',
+        category: 'HOSPITAL',
         city: 'London',
         address: '235 Euston Road, London NW1 2BU',
         phone: '+44 20 3456 7890',
@@ -232,7 +232,7 @@ async function main() {
       },
       {
         name: 'O2 Store London Tottenham Court Road',
-        category: 'Mobile',
+        category: 'MOBILE',
         city: 'London',
         address: '229 Tottenham Court Road, London W1T 7QG',
         phone: '+44 20 8057 4602',
@@ -242,7 +242,7 @@ async function main() {
       },
       {
         name: 'Camden Council (5 Pancras Square)',
-        category: 'Local Council',
+        category: 'LOCAL COUNCIL',
         city: 'London',
         address: '5 Pancras Square, London N1C 4AG',
         phone: '+44 20 7974 4444',
@@ -252,7 +252,7 @@ async function main() {
       },
       {
         name: 'King\'s Cross St Pancras Underground Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'London',
         address: 'Euston Road, London N1 9AL',
         phone: '',
@@ -262,7 +262,7 @@ async function main() {
       },
       {
         name: 'HSBC UK Kings Cross',
-        category: 'Bank',
+        category: 'BANK',
         city: 'London',
         address: '31 Euston Road, London NW1 2ST',
         phone: '',
@@ -272,7 +272,7 @@ async function main() {
       },
       {
         name: 'London King\'s Cross Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'London',
         address: 'Euston Road, London N1C 4AP',
         phone: '',
@@ -282,7 +282,7 @@ async function main() {
       },
       {
         name: 'King\'s Cross St Pancras Underground Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'London',
         address: 'Euston Road, London N1 9AL',
         phone: '',
@@ -292,7 +292,7 @@ async function main() {
       },
       {
         name: 'University College Hospital',
-        category: 'Hospital',
+        category: 'HOSPITAL',
         city: 'London',
         address: '235 Euston Road, London NW1 2BU',
         phone: '+44 20 3456 7890',
@@ -302,7 +302,7 @@ async function main() {
       },
       {
         name: 'Camden Council (5 Pancras Square)',
-        category: 'Local Council',
+        category: 'LOCAL COUNCIL',
         city: 'London',
         address: '5 Pancras Square, London N1C 4AG',
         phone: '',
@@ -312,7 +312,7 @@ async function main() {
       },
       {
         name: 'O2 Store London Tottenham Court Road',
-        category: 'Mobile',
+        category: 'MOBILE',
         city: 'London',
         address: '229 Tottenham Court Road, London W1T 7QG',
         phone: '+44 20 8057 4602',
@@ -322,7 +322,7 @@ async function main() {
       },
       {
         name: 'Imperial College London (South Kensington)',
-        category: 'Education',
+        category: 'EDUCATION',
         city: 'London',
         address: 'Exhibition Road, London SW7 2AZ',
         phone: '+44 20 7589 5111',
@@ -332,7 +332,7 @@ async function main() {
       },
       {
         name: 'South Kensington Underground Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'London',
         address: 'Pelham St, London SW7 2NB',
         phone: '',
@@ -342,7 +342,7 @@ async function main() {
       },
       {
         name: 'HSBC Gloucester Road (South Kensington)',
-        category: 'Bank',
+        category: 'BANK',
         city: 'London',
         address: '95 Gloucester Road, London SW7 4SX',
         phone: '',
@@ -352,7 +352,7 @@ async function main() {
       },
       {
         name: 'O2 Store London Kensington High St',
-        category: 'Mobile',
+        category: 'MOBILE',
         city: 'London',
         address: '145 Kensington High Street, London W8 6SU',
         phone: '+44 20 7938 3887',
@@ -362,7 +362,7 @@ async function main() {
       },
       {
         name: 'Royal Brompton Hospital',
-        category: 'Hospital',
+        category: 'HOSPITAL',
         city: 'London',
         address: 'Sydney Street, London SW3 6NP',
         phone: '+44 20 7352 8121',
@@ -372,7 +372,7 @@ async function main() {
       },
       {
         name: 'RBKC Customer Service Centre (Town Hall)',
-        category: 'Local Council',
+        category: 'LOCAL COUNCIL',
         city: 'London',
         address: 'Town Hall, Hornton Street, London W8 7NX',
         phone: '',
@@ -382,7 +382,7 @@ async function main() {
       },
       {
         name: 'London Bridge Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'London',
         address: 'Tooley Street / St Thomas Street, London SE1 3QX',
         phone: '',
@@ -392,7 +392,7 @@ async function main() {
       },
       {
         name: 'London Bridge Underground Station',
-        category: 'Transport',
+        category: 'TRANSPORT',
         city: 'London',
         address: '21 Duke St Hill, London SE1 2SW',
         phone: '',
@@ -402,7 +402,7 @@ async function main() {
       },
       {
         name: 'Guy\'s Hospital',
-        category: 'Hospital',
+        category: 'HOSPITAL',
         city: 'London',
         address: 'Great Maze Pond, London SE1 9RT',
         phone: '+44 20 7188 7188',
@@ -412,7 +412,7 @@ async function main() {
       },
       {
         name: 'Southwark Council (Main Office)',
-        category: 'Local Council',
+        category: 'LOCAL COUNCIL',
         city: 'London',
         address: '160 Tooley Street, London SE1 2QH',
         phone: '+44 20 7525 5000',
@@ -422,7 +422,7 @@ async function main() {
       },
       {
         name: 'HSBC UK London Bridge',
-        category: 'Bank',
+        category: 'BANK',
         city: 'London',
         address: '28 Borough High Street, London SE1 1YB',
         phone: '',
@@ -432,7 +432,7 @@ async function main() {
       },
       {
         name: 'O2 Store Locator',
-        category: 'Mobile',
+        category: 'MOBILE',
         city: 'London',
         address: '',
         phone: '',
