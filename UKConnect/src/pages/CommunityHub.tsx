@@ -129,33 +129,33 @@ export default function CommunityHub() {
 
   const handleShare = async () => {
     if (!postContent.trim() || !selectedType) return
-    
+
     // Validate length requirements
     if (postContent.trim().length < 10) {
       setError('Content must be at least 10 characters')
       return
     }
-    
+
     try {
       setPosting(true)
       setError(null)
-      
+
       // Generate title from body (first 120 chars or first sentence)
       const body = postContent.trim()
-      
-      
+
+
       // Map post type to tags
       const tags = selectedType
-      
+
       await createPost({
         body: body,
         tags: tags
       })
-      
+
       // Clear form
       setPostContent('')
       setSelectedType(null)
-      
+
       // Reload posts
       await loadPosts()
     } catch (err) {
@@ -194,7 +194,7 @@ export default function CommunityHub() {
     if (diffMins < 60) return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`
     if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`
     if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`
-    
+
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
   }
 
@@ -220,13 +220,13 @@ export default function CommunityHub() {
     try {
       setReplying(prev => ({ ...prev, [postId]: true }))
       setError(null)
-      
+
       await createReply(postId, { body: content })
-      
+
       // Clear reply input
       setReplyContent(prev => ({ ...prev, [postId]: '' }))
       setReplyingTo(null)
-      
+
       // Reload posts to get updated reply count
       await loadPosts()
     } catch (err) {
@@ -342,7 +342,7 @@ export default function CommunityHub() {
                       </div>
                       <div className="post-content">{post.content}</div>
                       <div className="post-actions">
-                        <button 
+                        <button
                           className="post-action-btn"
                           onClick={() => handleReplyClick(post.id)}
                         >
@@ -384,8 +384,8 @@ export default function CommunityHub() {
                           {(() => {
                             const maxInitialReplies = 3
                             const isExpanded = expandedReplies[post.id] || false
-                            const repliesToShow = isExpanded 
-                              ? post.replies 
+                            const repliesToShow = isExpanded
+                              ? post.replies
                               : post.replies.slice(0, maxInitialReplies)
                             const hasMore = post.replies.length > maxInitialReplies
 
@@ -433,27 +433,27 @@ export default function CommunityHub() {
             {/* Right Column - Sidebars */}
             <div className="community-hub-sidebar">
               {/* Community Stats */}
-              <div className="sidebar-section">
-                <h3 className="sidebar-section-title">
+              <div className="community-stats-section">
+                <h3 className="community-stats-title">
                   <HiOutlineUsers />
                   Community Stats
                 </h3>
-                <div className="stats-list">
-                  <div className="stat-item">
-                    <span className="stat-label">Active Members</span>
-                    <span className="stat-value">{stats.activeMembers.toLocaleString()}</span>
+                <div className="community-stats-list">
+                  <div className="community-stats-item">
+                    <span className="community-stats-label">Active Members</span>
+                    <span className="community-stats-value">{stats.activeMembers.toLocaleString()}</span>
                   </div>
-                  <div className="stat-item">
-                    <span className="stat-label">Countries</span>
-                    <span className="stat-value">{stats.countries}</span>
+                  <div className="community-stats-item">
+                    <span className="community-stats-label">Countries</span>
+                    <span className="community-stats-value">{stats.countries}</span>
                   </div>
-                  <div className="stat-item">
-                    <span className="stat-label">Success Stories</span>
-                    <span className="stat-value">{stats.successStories.toLocaleString()}</span>
+                  <div className="community-stats-item">
+                    <span className="community-stats-label">Success Stories</span>
+                    <span className="community-stats-value">{stats.successStories.toLocaleString()}</span>
                   </div>
-                  <div className="stat-item">
-                    <span className="stat-label">Questions Answered</span>
-                    <span className="stat-value">{stats.questionsAnswered.toLocaleString()}</span>
+                  <div className="community-stats-item">
+                    <span className="community-stats-label">Questions Answered</span>
+                    <span className="community-stats-value">{stats.questionsAnswered.toLocaleString()}</span>
                   </div>
                 </div>
               </div>

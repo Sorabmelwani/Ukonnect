@@ -976,8 +976,6 @@ svg[class*="react-icons"],
   font-family: var(--font-sans);
   color: var(--foreground);
   background-color: var(--card);
-  color: var(--text-primary, #333);
-  background-color: var(--bg-primary, white);
   transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -3077,8 +3075,8 @@ svg[class*="react-icons"],
 }
 
 .sidebar-section {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: var(--card);
+  border: 1px solid var(--border-color);
   border-radius: 0.75rem;
   padding: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -3090,7 +3088,7 @@ svg[class*="react-icons"],
   gap: 0.5rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin: 0 0 0.75rem 0;
 }
 
@@ -3100,7 +3098,7 @@ svg[class*="react-icons"],
 
 .sidebar-section-subtitle {
   font-size: 0.85rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0 0 1rem 0;
 }
 
@@ -3116,7 +3114,7 @@ svg[class*="react-icons"],
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .stat-item:last-child {
@@ -3125,10 +3123,58 @@ svg[class*="react-icons"],
 
 .stat-label {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Community Stats Section - Specific Styles */
+.community-stats-section {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  /* border-radius: 0.75rem; */
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.community-stats-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem 0;
+}
+
+.community-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.community-stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.community-stats-item:last-child {
+  border-bottom: none;
+}
+
+.community-stats-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.community-stats-value {
   font-size: 1rem;
   font-weight: 600;
   color: #1a1a1a;
@@ -5785,7 +5831,7 @@ svg[class*="react-icons"],
 
   /* Sidebar */
   .sidebar-section {
-    background-color: var(--bg-secondary);
+    background-color: var(--card);
     border-color: var(--border-color);
   }
 
@@ -5807,6 +5853,28 @@ svg[class*="react-icons"],
 
   .stat-value {
     color: var(--text-primary);
+  }
+
+  /* Community Stats Section - Dark Mode */
+  .community-stats-section {
+    background-color: hsl(220, 20%, 12%);
+    border-color: hsl(220, 15%, 25%);
+  }
+
+  .community-stats-title {
+    color: hsl(220, 15%, 92%);
+  }
+
+  .community-stats-item {
+    border-bottom-color: hsl(220, 15%, 25%);
+  }
+
+  .community-stats-label {
+    color: hsl(220, 15%, 65%);
+  }
+
+  .community-stats-value {
+    color: hsl(220, 15%, 92%);
   }
 
   .no-events,
