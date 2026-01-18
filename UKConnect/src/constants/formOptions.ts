@@ -21,22 +21,12 @@ export const UK_CITIES = [
 ] as const
 
 export const VISA_TYPES = [
-  'Student Visa',
-  'Work Visa',
-  'Skilled Worker',
-  'Family Visa',
-  'Family',
-  'Settlement',
-  'Spouse',
   'Student',
-  'Other'
+  'Skilled Worker',
 ] as const
 
 export const PURPOSES = [
   'Study',
   'Work',
-  'Family Reunion',
-  'Business',
-  'Other'
 ] as const
 
