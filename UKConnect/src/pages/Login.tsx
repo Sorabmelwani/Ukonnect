@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { login as loginApi } from '../api/auth'
 import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi'
 import ThemeToggle from '../components/ThemeToggle'
+import logo from '../assets/images/logo.png'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -32,64 +33,78 @@ export default function Login() {
   }
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
-          <ThemeToggle />
-        </div>
-        <h2>Welcome Back</h2>
-        <p>Sign in to continue your UK settlement journey</p>
-        
-        <form onSubmit={handleLogin}>
-          <div className="form-group-auth">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+    <div className="auth-split-container">
+      {/* Left Side - Branding */}
+      <div className="auth-branding">
+        <div className="auth-branding-content">
+          <div className="auth-logo-icon">
+            <img src={logo} alt="UKonnect Logo" style={{ width: '180px', height: 'auto' }} />
           </div>
+          <h1 className="auth-brand-name">UKonnect</h1>
+          <p className="auth-tagline">Settle in faster. One step at a time.</p>
+        </div>
+      </div>
 
-          <div className="form-group-auth">
-            <label htmlFor="password">Password</label>
-            <div className="password-input-wrapper">
+      {/* Right Side - Form */}
+      <div className="auth-form-section">
+        <div className="auth-form-wrapper">
+          <div className="auth-theme-toggle">
+            <ThemeToggle />
+          </div>
+          <h2>Welcome Back</h2>
+          <p>Sign in to your account</p>
+          
+          <form onSubmit={handleLogin}>
+            <div className="form-group-auth">
+              <label htmlFor="email">Email</label>
               <input
-                type={showPassword ? 'text' : 'password'}
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
-              </button>
             </div>
-          </div>
 
-          {error && <p className="auth-error">{error}</p>}
+            <div className="form-group-auth">
+              <label htmlFor="password">Password</label>
+              <div className="password-input-wrapper">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                </button>
+              </div>
+            </div>
 
-          <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
-            <Link to="/forgot-password" style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}>
-              Forgot Password?
-            </Link>
-          </div>
+            {error && <p className="auth-error">{error}</p>}
 
-          <button type="submit" className="btn btn-auth-primary" disabled={loading}>
-            {loading ? 'Signing In...' : 'Sign In'}
-          </button>
-        </form>
+            <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
+              <Link to="/forgot-password" style={{ fontSize: '0.9rem', color: 'var(--primary-color)' }}>
+                Forgot Password?
+              </Link>
+            </div>
 
-        <p className="auth-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </p>
+            <button type="submit" className="btn btn-auth-primary" disabled={loading}>
+              {loading ? 'Signing In...' : 'Sign In →'}
+            </button>
+          </form>
+
+          <p className="auth-link">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </p>
+        </div>
       </div>
     </div>
   )

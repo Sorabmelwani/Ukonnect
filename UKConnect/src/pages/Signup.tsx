@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { signup as signupApi, verifyVisa } from '../api/auth'
 import { updateProfile } from '../api/profile'
-import { HiOutlineEye, HiOutlineEyeOff, HiOutlineLocationMarker, HiOutlineCalendar, HiOutlineDocumentText } from 'react-icons/hi'
+import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi'
 import ThemeToggle from '../components/ThemeToggle'
 import { NATIONALITIES, UK_CITIES, VISA_TYPES, PURPOSES } from '../constants/formOptions'
+import logo from '../assets/images/logo.png'
 
 export default function Signup() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -167,11 +168,24 @@ export default function Signup() {
   }
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
-          <ThemeToggle />
+    <div className="auth-split-container">
+      {/* Left Side - Branding */}
+      <div className="auth-branding">
+        <div className="auth-branding-content">
+          <div className="auth-logo-icon">
+            <img src={logo} alt="UKonnect Logo" style={{ width: '180px', height: 'auto' }} />
+          </div>
+          <h1 className="auth-brand-name">UKonnect</h1>
+          <p className="auth-tagline">Settle in faster. One step at a time.</p>
         </div>
+      </div>
+
+      {/* Right Side - Form */}
+      <div className="auth-form-section">
+        <div className="auth-form-wrapper">
+          <div className="auth-theme-toggle">
+            <ThemeToggle />
+          </div>
 
         {/* Step Indicator */}
         <div className="signup-steps-indicator">
@@ -434,6 +448,7 @@ export default function Signup() {
             </form>
           </>
         )}
+        </div>
       </div>
     </div>
   )
