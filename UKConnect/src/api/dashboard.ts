@@ -9,6 +9,7 @@ export interface DashboardTask {
   category: string
   priority: string
   status: string
+  url: string | null
   dueAt: string
   completedAt: string | null
   createdAt: string

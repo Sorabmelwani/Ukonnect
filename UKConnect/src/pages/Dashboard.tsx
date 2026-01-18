@@ -262,7 +262,19 @@ export default function Dashboard() {
                     </div>
                     <div>
                       <h3 className="checklist-title">
-                        {task.title}{' '}
+                        {task.url ? (
+                          <a
+                            href={task.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="checklist-title-link"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {task.title}
+                          </a>
+                        ) : (
+                          task.title
+                        )}{' '}
                         <span className={`pill ${getPriorityClass(task.priority)}`}>{task.priority.toLowerCase()}</span>
                       </h3>
                       <p className="checklist-description">{task.description}</p>

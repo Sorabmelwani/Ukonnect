@@ -1625,6 +1625,18 @@ svg[class*="react-icons"],
   font-weight: 600;
 }
 
+.checklist-title-link {
+  color: #1f7ce1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.checklist-title-link:hover {
+  color: #1658b3;
+  text-decoration: underline;
+}
+
 .checklist-description {
   margin: 0 0 0.4rem;
   font-size: 0.75rem;
@@ -4649,6 +4661,15 @@ svg[class*="react-icons"],
 
   .checklist-title {
     color: var(--text-primary);
+  }
+
+  .checklist-title-link {
+    color: var(--primary-color);
+  }
+
+  .checklist-title-link:hover {
+    color: var(--primary-color);
+    opacity: 0.8;
   }
 
   .checklist-description {
