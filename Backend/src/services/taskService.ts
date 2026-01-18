@@ -81,6 +81,8 @@ export async function generateTasksForUser(userId: string) {
   const existingSet = new Set(existing.map((e: { templateId: string | null }) => e.templateId).filter(Boolean) as string[]);
 
   const now = new Date();
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0); // Set to start of today
   const created = [];
 
   for (const t of applicable) {
@@ -89,10 +91,15 @@ export async function generateTasksForUser(userId: string) {
     const normalizedPriority = typeof t.defaultPriority === "string" ? t.defaultPriority.toUpperCase() : null;
     const priority: TaskPriority = isTaskPriority(normalizedPriority) ? normalizedPriority : "MEDIUM";
 
-    const dueDays =
-      priority === "URGENT" ? 3 : priority === "HIGH" ? 7 : priority === "MEDIUM" ? 14 : 21;
-
-    const dueAt = new Date(now.getTime() + dueDays * 24 * 60 * 60 * 1000);
+    // Set first task's dueAt to today, others based on priority
+    let dueAt: Date;
+    if (created.length === 0) {
+      dueAt = today;
+    } else {
+      const dueDays =
+        priority === "URGENT" ? 3 : priority === "HIGH" ? 7 : priority === "MEDIUM" ? 14 : 21;
+      dueAt = new Date(now.getTime() + dueDays * 24 * 60 * 60 * 1000);
+    }
 
     try {
       const ut = await prisma.userTask.create({
