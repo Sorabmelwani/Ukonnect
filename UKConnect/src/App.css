@@ -1690,6 +1690,37 @@ svg[class*="react-icons"],
   color: #ffffff;
 }
 
+.checklist-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checklist-view-note-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.checklist-view-note-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+.checklist-view-note-icon {
+  font-size: 1rem;
+}
+
 .dashboard-bottom-nav {
   position: fixed;
   left: 50%;
@@ -1718,6 +1749,141 @@ svg[class*="react-icons"],
 
 .nav-icon {
   font-size: 1rem;
+}
+
+/* Notes Popup */
+.notes-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.notes-popup {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.notes-popup-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.notes-popup-subtitle {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.notes-popup-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.notes-popup-input:focus {
+  outline: none;
+  border-color: #1f7ce1;
+  box-shadow: 0 0 0 3px rgba(31, 124, 225, 0.1);
+}
+
+.notes-popup-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.notes-popup-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.notes-popup-btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.notes-popup-btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.notes-popup-btn-primary {
+  background: #1f7ce1;
+  color: #ffffff;
+}
+
+.notes-popup-btn-primary:hover:not(:disabled) {
+  background: #1658b3;
+}
+
+.notes-popup-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.notes-popup-view .notes-popup-note-content {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #111827;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 4rem;
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.notes-popup-view .notes-popup-buttons {
+  justify-content: center;
 }
 
 .placeholder-page {
@@ -4695,6 +4861,26 @@ svg[class*="react-icons"],
     color: white;
   }
 
+  .checklist-view-note-btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+  }
+
+  .checklist-view-note-btn:hover {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  .checklist-view-note-icon {
+    color: var(--text-secondary);
+  }
+
+  .checklist-view-note-btn:hover .checklist-view-note-icon {
+    color: var(--text-primary);
+  }
+
   .dashboard-bottom-nav {
     background-color: var(--bg-secondary);
     border-top-color: var(--border-color);
@@ -4778,6 +4964,56 @@ svg[class*="react-icons"],
   .dashboard-notification-close:hover {
     color: var(--text-primary);
     background-color: var(--bg-tertiary);
+  }
+
+  /* Notes Popup */
+  .notes-popup {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .notes-popup-title {
+    color: var(--text-primary);
+  }
+
+  .notes-popup-subtitle {
+    color: var(--text-secondary);
+  }
+
+  .notes-popup-input {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  .notes-popup-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(31, 124, 225, 0.2);
+  }
+
+  .notes-popup-btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  .notes-popup-btn-secondary:hover {
+    background: var(--bg-primary);
+  }
+
+  .notes-popup-btn-primary {
+    background: var(--primary-color);
+    color: #ffffff;
+  }
+
+  .notes-popup-btn-primary:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  .notes-popup-view .notes-popup-note-content {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
   }
 
   /* Pills */

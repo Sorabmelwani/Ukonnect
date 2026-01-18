@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchDashboard, generateTasks, updateTaskStatus, type DashboardTask, type DashboardData } from '../api/dashboard'
-import { HiOutlineUser, HiOutlineLocationMarker, HiOutlineClock, HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineX } from 'react-icons/hi'
+import { HiOutlineUser, HiOutlineLocationMarker, HiOutlineClock, HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineX, HiOutlineDocumentText } from 'react-icons/hi'
 import { FiSearch, FiFolder, FiHeart, FiSettings } from 'react-icons/fi'
 import ThemeToggle from '../components/ThemeToggle'
 import PageHeader from '../components/PageHeader'
@@ -14,6 +14,11 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null)
   const [dismissedNotifications, setDismissedNotifications] = useState<Set<string>>(new Set())
   const tasksGeneratedRef = useRef(false)
+  const [notesPopupOpen, setNotesPopupOpen] = useState(false)
+  const [viewNotePopupOpen, setViewNotePopupOpen] = useState(false)
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
+  const [selectedTaskNote, setSelectedTaskNote] = useState<string | null>(null)
+  const [noteText, setNoteText] = useState('')
 
   const loadDashboard = async () => {
     try {
@@ -56,15 +61,97 @@ export default function Dashboard() {
   }
 
   const handleTaskStatusToggle = async (task: DashboardTask) => {
+    const newStatus = task.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED'
+    
+    // If marking incomplete, delete note and update normally
+    if (newStatus === 'PENDING') {
+      try {
+        // Optimistic update - delete note
+        if (data) {
+          setData({
+            ...data,
+            upcoming: data.upcoming.map(t => 
+              t.id === task.id 
+                ? { ...t, status: 'PENDING', completedAt: null, notes: null }
+                : t
+            ),
+            completed: Math.max(0, data.completed - 1),
+            pending: data.pending + 1
+          })
+        }
+        await updateTaskStatus(task.id, newStatus, null)
+        await loadDashboard()
+      } catch (err) {
+        console.error('Failed to update task status', err)
+        setError('Failed to update task status. Please try again.')
+        await loadDashboard() // Revert on error
+      }
+      return
+    }
+
+    // If marking complete, do optimistic update then show popup
     try {
-      const newStatus = task.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED'
-      await updateTaskStatus(task.id, newStatus)
-      // Refresh dashboard data after status update
-      await loadDashboard()
+      // Optimistic update - mark as complete immediately
+      if (data) {
+        setData({
+          ...data,
+          upcoming: data.upcoming.map(t => 
+            t.id === task.id 
+              ? { 
+                  ...t, 
+                  status: 'COMPLETED', 
+                  completedAt: new Date().toISOString() 
+                }
+              : t
+          ),
+          completed: data.completed + 1,
+          pending: Math.max(0, data.pending - 1)
+        })
+      }
+      
+      // Update in backend
+      await updateTaskStatus(task.id, 'COMPLETED')
+      
+      // Show notes popup
+      setSelectedTaskId(task.id)
+      setNoteText('')
+      setNotesPopupOpen(true)
     } catch (err) {
       console.error('Failed to update task status', err)
       setError('Failed to update task status. Please try again.')
+      await loadDashboard() // Revert on error
     }
+  }
+
+  const handleSaveNote = async () => {
+    if (!selectedTaskId || !noteText.trim()) return
+    
+    try {
+      await updateTaskStatus(selectedTaskId, 'COMPLETED', noteText.trim())
+      await loadDashboard()
+      setNotesPopupOpen(false)
+      setSelectedTaskId(null)
+      setNoteText('')
+    } catch (err) {
+      console.error('Failed to save note', err)
+      setError('Failed to save note. Please try again.')
+    }
+  }
+
+  const handleClosePopup = () => {
+    setNotesPopupOpen(false)
+    setSelectedTaskId(null)
+    setNoteText('')
+  }
+
+  const handleViewNote = (task: DashboardTask) => {
+    setSelectedTaskNote(task.notes)
+    setViewNotePopupOpen(true)
+  }
+
+  const handleCloseViewNotePopup = () => {
+    setViewNotePopupOpen(false)
+    setSelectedTaskNote(null)
   }
 
   const totalTasks = data?.total ?? 0
@@ -284,13 +371,25 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </div>
-                  <button
-                    className={`checklist-complete-btn ${isCompleted ? 'completed' : ''}`}
-                    onClick={() => handleTaskStatusToggle(task)}
-                    disabled={loading}
-                  >
-                    {isCompleted ? 'Mark Incomplete' : 'Mark Complete'}
-                  </button>
+                  <div className="checklist-actions">
+                    {isCompleted && task.notes && (
+                      <button
+                        className="checklist-view-note-btn"
+                        onClick={() => handleViewNote(task)}
+                        title="View note"
+                      >
+                        <HiOutlineDocumentText className="checklist-view-note-icon" />
+                        <span>View note</span>
+                      </button>
+                    )}
+                    <button
+                      className={`checklist-complete-btn ${isCompleted ? 'completed' : ''}`}
+                      onClick={() => handleTaskStatusToggle(task)}
+                      disabled={loading}
+                    >
+                      {isCompleted ? 'Mark Incomplete' : 'Mark Complete'}
+                    </button>
+                  </div>
                 </article>
               )
             })}
@@ -318,6 +417,63 @@ export default function Dashboard() {
       </nav>
 
       <Chatbot />
+
+      {/* Notes Popup */}
+      {notesPopupOpen && (
+        <div className="notes-popup-overlay" onClick={handleClosePopup}>
+          <div className="notes-popup" onClick={(e) => e.stopPropagation()}>
+            <h2 className="notes-popup-title">Task completed</h2>
+            <p className="notes-popup-subtitle">Add a note for yourself (optional).</p>
+            <input
+              type="text"
+              className="notes-popup-input"
+              placeholder="e.g., GP registered on 12 Jan, my uk number…"
+              value={noteText}
+              onChange={(e) => setNoteText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && noteText.trim()) {
+                  handleSaveNote()
+                }
+              }}
+            />
+            <div className="notes-popup-buttons">
+              <button 
+                className="notes-popup-btn notes-popup-btn-secondary"
+                onClick={handleClosePopup}
+              >
+                Done
+              </button>
+              <button
+                className="notes-popup-btn notes-popup-btn-primary"
+                onClick={handleSaveNote}
+                disabled={!noteText.trim()}
+              >
+                Save note
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Note Popup */}
+      {viewNotePopupOpen && (
+        <div className="notes-popup-overlay" onClick={handleCloseViewNotePopup}>
+          <div className="notes-popup notes-popup-view" onClick={(e) => e.stopPropagation()}>
+            <h2 className="notes-popup-title">Task Note</h2>
+            <div className="notes-popup-note-content">
+              {selectedTaskNote}
+            </div>
+            <div className="notes-popup-buttons">
+              <button 
+                className="notes-popup-btn notes-popup-btn-primary"
+                onClick={handleCloseViewNotePopup}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

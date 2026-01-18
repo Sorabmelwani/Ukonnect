@@ -10,6 +10,7 @@ export interface DashboardTask {
   priority: string
   status: string
   url: string | null
+  notes: string | null
   dueAt: string
   completedAt: string | null
   createdAt: string
@@ -60,8 +61,10 @@ export const generateTasks = async (): Promise<DashboardTask[]> => {
   return response.data
 }
 
-export const updateTaskStatus = async (taskId: string, status: 'COMPLETED' | 'PENDING'): Promise<DashboardTask> => {
-  const response = await apiClient.patch<DashboardTask>(`/tasks/${taskId}`, { status })
+export const updateTaskStatus = async (taskId: string, status: 'COMPLETED' | 'PENDING', notes?: string | null): Promise<DashboardTask> => {
+  const payload: { status: 'COMPLETED' | 'PENDING'; notes?: string | null } = { status }
+  if (notes !== undefined) payload.notes = notes
+  const response = await apiClient.patch<DashboardTask>(`/tasks/${taskId}`, payload)
   return response.data
 }
 

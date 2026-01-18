@@ -144,7 +144,7 @@ export async function listTasks(
 export async function updateTask(
   userId: string,
   taskId: string,
-  patch: Partial<{ status: TaskStatus; priority: TaskPriority; dueAt: Date | null }>
+  patch: Partial<{ status: TaskStatus; priority: TaskPriority; dueAt: Date | null; notes: string | null }>
 ) {
   const task = await prisma.userTask.findUnique({ where: { id: taskId } });
   if (!task || task.userId !== userId) throw new Error("NOT_FOUND");
@@ -161,11 +161,13 @@ export async function updateTask(
     priority?: TaskPriority;
     dueAt?: Date | null;
     completedAt?: Date | null;
+    notes?: string | null;
   } = {};
 
   if (patch.status) data.status = patch.status;
   if (patch.priority) data.priority = patch.priority;
   if (patch.dueAt !== undefined) data.dueAt = patch.dueAt;
+  if (patch.notes !== undefined) data.notes = patch.notes;
   data.completedAt = completedAt;
 
   return prisma.userTask.update({

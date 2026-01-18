@@ -55,15 +55,17 @@ tasksRouter.patch("/:id", requireAuth, async (req, res, next) => {
       status: z.enum(TASK_STATUSES).optional(),
       priority: z.enum(TASK_PRIORITIES).optional(),
       dueAt: z.string().datetime().optional(),
+      notes: z.string().nullable().optional(),
     });
 
     const body = bodySchema.parse(req.body);
 
-    const patch: Partial<{ status: TaskStatus; priority: TaskPriority; dueAt: Date | null }> = {};
+    const patch: Partial<{ status: TaskStatus; priority: TaskPriority; dueAt: Date | null; notes: string | null }> = {};
 
     if (body.status !== undefined) patch.status = body.status;
     if (body.priority !== undefined) patch.priority = body.priority;
     if (body.dueAt !== undefined) patch.dueAt = new Date(body.dueAt);
+    if (body.notes !== undefined) patch.notes = body.notes;
 
     const updated = await updateTask(req.user!.id, taskId, patch);
 
