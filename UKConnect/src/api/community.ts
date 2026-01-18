@@ -94,3 +94,29 @@ export const fetchStats = async (): Promise<CommunityStats> => {
   return response.data.stats
 }
 
+export interface UpdatePostPayload {
+  body: string
+  tags?: string
+}
+
+export interface UpdatePostResponse {
+  ok: boolean
+  post?: CommunityPost
+}
+
+export const updatePost = async (postId: string, data: UpdatePostPayload): Promise<CommunityPost> => {
+  const response = await apiClient.put<UpdatePostResponse>(`/community/posts/${postId}`, data)
+  if (response.data.post) {
+    return response.data.post
+  }
+  throw new Error('Post update failed')
+}
+
+export interface DeletePostResponse {
+  ok: boolean
+}
+
+export const deletePost = async (postId: string): Promise<void> => {
+  await apiClient.delete<DeletePostResponse>(`/community/posts/${postId}`)
+}
+
