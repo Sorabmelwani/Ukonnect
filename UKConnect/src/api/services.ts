@@ -6,6 +6,7 @@ export interface Service {
   category: string
   city: string
   address: string | null
+  postcode: string | null
   phone: string | null
   website: string
   description: string

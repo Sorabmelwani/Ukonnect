@@ -34,6 +34,7 @@ type TaskTemplateLite = {
   purposeMatch: string | null;
   cityMatch: string | null;
   nationalityMatch: string | null;
+  officialUrl: string | null;
   sortOrder: number;
 };
 
@@ -102,6 +103,7 @@ export async function generateTasksForUser(userId: string) {
           category: t.category,
           priority,
           status: "PENDING",
+          url: t.officialUrl,
           dueAt,
         },
       });

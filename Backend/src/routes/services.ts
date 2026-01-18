@@ -17,7 +17,12 @@ servicesRouter.get("/", async (req, res, next) => {
 
     const services = await prisma.localService.findMany({
       where: {
-        ...(q.city ? { city: { contains: q.city } } : {}),
+        ...(q.city ? {
+          OR: [
+            { city: { contains: q.city } },
+            { postcode: { contains: q.city } }
+          ]
+        } : {}),
         ...(q.category ? { category: q.category as any } : {}),
         ...(q.q ? { name: { contains: q.q } } : {})
       },
@@ -28,7 +33,7 @@ servicesRouter.get("/", async (req, res, next) => {
     res.json({ ok: true, services });
   } catch (err) {
     if (err instanceof z.ZodError) {
-      next(new HttpError(400, "Invalid query parameters: " + err.errors.map(e => e.message).join(", ")));
+      next(new HttpError(400, "Invalid query parameters: " + err.issues.map((e: z.ZodIssue) => e.message).join(", ")));
     } else {
       next(err);
     }

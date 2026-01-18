@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchServices, type Service } from '../api/services'
-import { HiOutlineOfficeBuilding, HiOutlineDeviceMobile, HiOutlineTruck, HiOutlineAcademicCap, HiOutlineLocationMarker, HiOutlineSearch, HiOutlineClock, HiOutlinePaperAirplane, HiOutlineStar } from 'react-icons/hi'
+import { HiOutlineOfficeBuilding, HiOutlineDeviceMobile, HiOutlineTruck, HiOutlineAcademicCap, HiOutlineLocationMarker, HiOutlineSearch, HiOutlineClock, HiOutlinePaperAirplane, HiOutlineStar, HiOutlineExternalLink } from 'react-icons/hi'
 import ThemeToggle from '../components/ThemeToggle'
 import PageHeader from '../components/PageHeader'
 import { HiOutlineBuildingOffice, HiOutlineBuildingOffice2 } from 'react-icons/hi2'
@@ -73,13 +73,26 @@ export default function LocalServices() {
 
   const handleGetDirections = (service: Service) => {
     // Open in Google Maps
-    const address = service.address || `${service.name} ${service.city || 'London'}`
+    let address = service.address || `${service.name} ${service.city || 'London'}`
+    if (service.postcode) {
+      address = `${address} ${service.postcode}`
+    }
     const query = encodeURIComponent(address)
     window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank')
   }
 
   const handleCall = (phone: string) => {
     window.location.href = `tel:${phone}`
+  }
+
+  const handleOpenWebsite = (website: string) => {
+    if (website) {
+      // Ensure URL has protocol
+      const url = website.startsWith('http://') || website.startsWith('https://') 
+        ? website 
+        : `https://${website}`
+      window.open(url, '_blank', 'noopener,noreferrer')
+    }
   }
 
   return (
@@ -112,7 +125,7 @@ export default function LocalServices() {
                 <input
                   type="text"
                   className="search-input"
-                  placeholder="Enter your city (e.g., London)"
+                  placeholder="Enter city or postcode (e.g., London or KT1 2EE)"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                 />
@@ -145,10 +158,7 @@ export default function LocalServices() {
                 services.map((service, index) => {
                   // Use dummy data for missing fields to maintain design
                   const address = service.address || `${index + 1}${index === 0 ? '23' : index === 1 ? '56' : '89'} ${getCategoryDisplayName(service.category)} Street, ${service.city || 'London'} ${index === 0 ? 'EC1A 1BB' : index === 1 ? 'EC1A 2CC' : 'EC1A 3DD'}`
-                  const phone = service.phone || `020 ${1234 + index} ${5678 + index}`
-                  const hours = index === 2 ? '24/7 Emergency' : index === 3 ? 'Daily 7:00-23:00' : index % 2 === 0 ? 'Mon-Fri 8:00-18:00' : 'Mon-Fri 9:00-17:00'
-                  const rating = 4.5 - (index * 0.1) + (Math.random() * 0.2) // Vary ratings between 4.0-4.7
-                  const distance = 0.5
+                  const phone = service.phone || ``
                   
                   return (
                     <div key={service.id} className="service-card">
@@ -158,23 +168,24 @@ export default function LocalServices() {
                           <h3 className="service-name">{service.name}</h3>
                           <div className="service-category-rating">
                             <span className="service-category">{getCategoryDisplayName(service.category)}</span>
-                            <span className="service-rating"><HiOutlineStar /> {rating.toFixed(1)}</span>
                           </div>
                         </div>
-                        <div className="service-distance-badge">{distance} miles</div>
                       </div>
                       <div className="service-details">
                         <div className="service-detail-item">
                           <HiOutlineLocationMarker className="service-detail-label" />
-                          <span className="service-detail-value">{address}</span>
+                          <span className="service-detail-value">
+                            {address}
+                            {service.postcode && `, ${service.postcode}`}
+                          </span>
+                        </div>
+                        <div className="service-detail-item"> 
+                          <HiOutlineLocationMarker className="service-detail-label" />
+                          <span className="service-detail-value">{service.city}</span>
                         </div>
                         <div className="service-detail-item">
                           <HiOutlineDeviceMobile className="service-detail-label" />
                           <span className="service-detail-value">{phone}</span>
-                        </div>
-                        <div className="service-detail-item">
-                          <HiOutlineClock className="service-detail-label" />
-                          <span className="service-detail-value">{hours}</span>
                         </div>
                         <p className="service-description">{service.description}</p>
                       </div>
@@ -186,13 +197,14 @@ export default function LocalServices() {
                           <HiOutlinePaperAirplane />
                           Get Directions
                         </button>
-                        <button
-                          className="service-call-btn"
-                          onClick={() => handleCall(phone)}
-                          aria-label="Call"
-                        >
-                          📞
-                        </button>
+                          <button
+                            className="service-call-btn"
+                            onClick={() => handleOpenWebsite(service.website)}
+                            aria-label="Open website"
+                            title="Open website"
+                          >
+                            <HiOutlineExternalLink />
+                          </button>
                       </div>
                     </div>
                   )

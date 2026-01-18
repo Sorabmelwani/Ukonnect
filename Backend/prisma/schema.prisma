@@ -97,6 +97,8 @@ model UserTask {
   priority    String   @default("MEDIUM")
   status      String   @default("PENDING")
 
+  url         String?
+
   dueAt       DateTime?
   completedAt DateTime?
 
