@@ -30,8 +30,8 @@ Backend/prisma/dev.db
 Backend/prisma/dev.db-journal
 
 # Frontend specific
-UKConnect/dist/
-UKConnect/.vite/
+Frontend/dist/
+Frontend/.vite/
 
 # Package manager
 package-lock.json

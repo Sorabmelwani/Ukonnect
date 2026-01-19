@@ -13,7 +13,6 @@ servicesRouter.get("/", async (req, res, next) => {
       q: z.string().optional()
     });
     const q = schema.parse(req.query);
-    console.log("Query:", q);
 
     const services = await prisma.localService.findMany({
       where: {

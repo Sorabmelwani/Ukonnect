@@ -76,7 +76,7 @@ npm install
 npm install --prefix Backend
 
 # Frontend dependencies
-npm install --prefix UKConnect
+npm install --prefix Frontend
 ```
 
 ### 3. Environment Setup
@@ -113,7 +113,7 @@ openssl rand -base64 32
 
 #### Frontend Environment Variables
 
-Create a `.env` file in the `UKConnect` directory (if needed):
+Create a `.env` file in the `Frontend` directory (if needed):
 
 ```env
 VITE_API_URL=http://localhost:4000
@@ -180,7 +180,7 @@ Ukonnect/
 │   │   └── migrations/     # Database migrations
 │   └── package.json
 │
-├── UKConnect/              # React Frontend Application
+├── Frontend/              # React Frontend Application
 │   ├── src/
 │   │   ├── api/            # API client functions
 │   │   ├── components/     # React components
@@ -253,7 +253,7 @@ npm run build
 
 # Or build individually
 cd Backend && npm run build
-cd UKConnect && npm run build
+cd Frontend && npm run build
 ```
 
 ## 📝 Database Management

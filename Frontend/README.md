@@ -1,4 +1,4 @@
-# UKConnect
+# Frontend
 
 A modern React TypeScript application for connecting UK professionals.
 
@@ -12,7 +12,7 @@ A modern React TypeScript application for connecting UK professionals.
 
 1. Navigate to the project directory:
 ```bash
-cd UKConnect
+cd Frontend
 ```
 
 2. Install dependencies:
